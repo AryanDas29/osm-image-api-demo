@@ -1,52 +1,86 @@
-# OSM Image API Mini-Project
-
-This is a **mini-project** built as part of my preparation for my work with **Humanitarian OpenStreetMap (HOT)** through **Code for Good Berkeley**. The goal of this project was to get familiar with the **FastAPI** tech stack before starting the main HOT project.
+# OSM Image API 🗺️
+> A FastAPI-powered REST API for analyzing street-level images — built as a learning exercise before contributing to Humanitarian OpenStreetMap (HOT).
 
 ---
 
-## Project Description
+## Description
 
-The **OSM Image API** is a simple API that analyzes uploaded street-level images and returns:
+OSM Image API accepts an uploaded street-level image and returns basic analysis metadata relevant to road condition tagging. It predicts time of day from brightness, assigns a mock surface type, and extracts image dimensions and format — simulating the kind of structured output needed for HOT-compatible OpenStreetMap tags.
 
-- **Average brightness** of the image
-- **Likely time of day** (day/night) based on brightness
-- **Mock surface type** (paved/unpaved)
-- **Image dimensions** (width, height)
-- **Image format** (JPEG, PNG, etc.)
-
-This API uses a combination of **Python**, **FastAPI**, and **Pillow (PIL)** for image processing.
+This project was built to get hands-on experience with FastAPI and REST API development before working on a larger geo-image processing pipeline through [Code for Good Berkeley](https://codeforgoodoberkeley.org) in partnership with [Humanitarian OpenStreetMap Team (HOT)](https://www.hotosm.org).
 
 ---
 
 ## Tech Stack
 
-- **Python** – core programming language
-- **FastAPI** – web framework for building the API
-- **Pillow (PIL)** – image processing
-- **Uvicorn** – ASGI server to run FastAPI
-- **Random module** – for mock surface type generation
+| Tool | Purpose |
+|------|---------|
+| **Python** | Core language |
+| **FastAPI** | REST API framework |
+| **Pillow (PIL)** | Image processing |
+| **Uvicorn** | ASGI server |
+| **Random** | Mock surface type generation |
 
 ---
 
-## How to Run
+## Getting Started
 
-1. # Clone this repository
-   git clone https://github.com/AryanDas29/osm-image-api-demo.git
-   cd osm-image-api-demo
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/osm-image-api.git
+cd osm-image-api
+```
 
-2. # Create and activate a virtual environment
-   python3 -m venv venv
-   source venv/bin/activate      # macOS/Linux
-   # venv\Scripts\activate       # Windows
+### 2. Create and activate a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-3. # Install dependencies
-   pip install fastapi uvicorn pillow python-multipart
+### 3. Install dependencies
+```bash
+pip install fastapi uvicorn pillow python-multipart
+```
 
-4. # Start the FastAPI server
-   python -m uvicorn main:app --reload
+### 4. Run the server
+```bash
+uvicorn main:app --reload
+```
 
-5. # Open the API docs in your browser
-   # http://127.0.0.1:8000/docs
+The API will be available at `http://127.0.0.1:8000`.
 
-6. # Test the /analyze-image/ endpoint by uploading an image and seeing the JSON response
-   # with brightness, likely time, mock surface type, and image metadata
+---
+
+## API Endpoints
+
+### `GET /status`
+Returns a health check confirming the API is running.
+
+```json
+{ "status": "OSM Image API is running" }
+```
+
+### `POST /analyze-image/`
+Upload a street-level image and receive analysis results.
+
+**Request:** `multipart/form-data` with an image file field.
+
+**Response:**
+```json
+{
+  "average_brightness": 142.7,
+  "time_of_day": "day",
+  "surface_type": "paved",
+  "width": 1920,
+  "height": 1080,
+  "format": "JPEG"
+}
+```
+
+---
+
+## Purpose
+
+This is a learning project — not production code. It was built to explore FastAPI patterns (routing, file uploads, query parameters, JSON responses) and Python image processing with Pillow before contributing to a real humanitarian mapping system that processes geo-located street imagery for disaster response.
+
+---
