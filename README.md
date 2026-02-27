@@ -30,7 +30,23 @@ This API uses a combination of **Python**, **FastAPI**, and **Pillow (PIL)** for
 
 ## How to Run
 
-1. Clone this repository:
-   ```bash
+1. # Clone this repository
    git clone https://github.com/AryanDas29/osm-image-api-demo.git
    cd osm-image-api-demo
+
+2. # Create and activate a virtual environment
+   python3 -m venv venv
+   source venv/bin/activate      # macOS/Linux
+   # venv\Scripts\activate       # Windows
+
+3. # Install dependencies
+   pip install fastapi uvicorn pillow python-multipart
+
+4. # Start the FastAPI server
+   python -m uvicorn main:app --reload
+
+5. # Open the API docs in your browser
+   # http://127.0.0.1:8000/docs
+
+6. # Test the /analyze-image/ endpoint by uploading an image and seeing the JSON response
+   # with brightness, likely time, mock surface type, and image metadata
